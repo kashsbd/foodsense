@@ -2,7 +2,7 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 
 function FoodListScreen() {
-  return <Text>FoodListScreen</Text>;
+  return <Text>Food List Screen</Text>;
 }
 
 const styles = StyleSheet.create({});
