@@ -1,10 +1,55 @@
-import React from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, TextInput, FlatList, Button } from "react-native";
+import FoodListItem from "./components/FoodListItem";
+import { getData } from "./network";
+import { Button } from "bootstrap";
+import { useNavigation } from "@react-navigation/native";
 
-function FoodListScreen() {
-  return <Text>FoodListScreen</Text>;
+export default function FoodListScreen() {
+  // assume i got user data from global context here
+  const [data, setData] = useState();
+  const navigation = useNavigation();
+  async function fetchData() {
+    // pass userId, token inside getData
+    try {
+      const res = await getData("pass userId and token here ");
+      if (res) {
+        setData(res);
+      } else {
+        console.log("Error fetching data from server");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const AddFood = () => {
+    navigation.navigate("/AddFood");
+  };
+  return (
+    <View>
+      <TextInput style={styles.input} placeholder="Live Search" />
+      <Button title="Add Product" onPress={AddFood} />
+      <FlatList
+        data={data}
+        renderItem={({ item }) => <FoodListItem data={item} />}
+        keyExtractor={(item) => item.something.toString()} //have to store some unique value
+      />
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({});
-
-export default FoodListScreen;
+const styles = StyleSheet.create({
+  input: {
+    padding: 10,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    color: "#444",
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
+    backgroundColor: "#F5F5F5",
+  },
+});
