@@ -11,6 +11,7 @@ export default function NoteListScreen({navigation}) {
   const addNote = () => {
     navigation.navigate('add-note')
   }
+  
   return (
     <View>
       <FlatList

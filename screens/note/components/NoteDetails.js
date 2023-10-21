@@ -12,7 +12,6 @@ export default function NoteDetails({ route }) {
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
