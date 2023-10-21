@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, TextInput, FlatList, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import FoodListItem from "./components/FoodListItem";
 import { getData } from "./network";
-import { Button } from "bootstrap";
-import { useNavigation } from "@react-navigation/native";
 
 export default function FoodListScreen() {
   // assume i got user data from global context here
