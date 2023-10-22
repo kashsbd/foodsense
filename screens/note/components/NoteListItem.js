@@ -12,7 +12,7 @@ function NoteListItem({ item }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>List of Notes</Text>
+     
       <Text style={styles.header}>Header: {item.header}</Text>
       <Text style={styles.date}>Date: {item.date}</Text>
       <TouchableHighlight style={styles.detailsButton} onPress={Details}>
@@ -30,10 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+ 
   header: {
     fontSize: 16,
     marginBottom: 5,

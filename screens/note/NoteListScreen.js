@@ -33,13 +33,15 @@ export default function NoteListScreen({ navigation }) {
 
   return (
     <ScrollView>
+      <Text style={styles.text}>List of Notes</Text>
+       <TouchableHighlight onPress={addNote} style={styles.addButton}>
+        <Text style={styles.buttonText}>Add Note</Text>
+      </TouchableHighlight>
      <FlatList
         data={data}
         renderItem={({ item }) => <NoteListItem item={item} />}
         keyExtractor={item => item._id} />
-      <TouchableHighlight onPress={addNote} style={styles.addButton}>
-        <Text style={styles.buttonText}>Add Note</Text>
-      </TouchableHighlight>
+     
       </ScrollView>
 
   )
@@ -49,12 +51,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    width:140,
+    alignSelf:"center"
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  text:{
+    fontSize:20,
+    fontStyle:'italic',
+    margin:20
+  }
 });
 
 
