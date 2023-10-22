@@ -14,7 +14,7 @@ function NoteListItem({ item }) {
     <View style={styles.container}>
       <Text style={styles.title}>List of Notes</Text>
       <Text style={styles.header}>Header: {item.header}</Text>
-      <Text style={styles.date}>Date: {item.date.toDateString()}</Text>
+      <Text style={styles.date}>Date: {item.date}</Text>
       <TouchableHighlight style={styles.detailsButton} onPress={Details}>
         <Text style={styles.buttonText}>Details</Text>
       </TouchableHighlight>

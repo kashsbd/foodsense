@@ -1,19 +1,25 @@
 import { TextInput, View, TouchableHighlight, Text, Alert, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { addNotes } from "../../../services";
+import GlobalContextProvider from "../../../contexts/GlobalContext";
+import { useFocusEffect } from "@react-navigation/native";
 export default function AddNote({ navigation }) {
     const [note, setNote] = useState({ header: '', comment: "" });
-
-    //const{state,setState}=useContext(GlobalContext);
-    const addNote = () => {
+    const { state, setState } = useContext(GlobalContextProvider);
+    const addNote = async () => {
         if (note.comment === '' || note.header === '') {
-            Alert.alert('all fields are requires');
-
+            Alert.alert('all fields are requiresd');
         } else {
-            //setState(...state,note)
-            Alert.alert('Notes Successfully Added')
-            navigation.navigate('NoteList');
+            try {
+                const result = await addNotes(note, state.token);
+                Alert.alert('Notes Successfully Added')
+                navigation.navigate('NoteList');
+            } catch (error) {
+                alert('error adding notes');
+            }
         }
     }
+   
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Add Note</Text>

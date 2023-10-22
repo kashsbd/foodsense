@@ -8,7 +8,7 @@ export default function NoteDetails({ route }) {
             <Text style={styles.title}>Note Details</Text>
             <Text style={styles.header}>{item.header}</Text>
             <Text style={styles.comment}>{item.comment}</Text>
-            <Text style={styles.date}>Date: {item.date.toDateString()}</Text>
+            <Text style={styles.date}>Date: {item.date}</Text>
         </View>
     )
 }

@@ -3,10 +3,8 @@ import NoteListScreen from "../NoteListScreen";
 import NoteDetails from "../components/NoteDetails";
 import AddNote from "../components/AddNote";
 
-
-
-
 const NoteStack = createNativeStackNavigator();
+
 function NoteStackComponent() {
   return (
     <NoteStack.Navigator initialRouteName="NoteList">

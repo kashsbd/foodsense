@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { StyleSheet, View, FlatList, Text, TouchableHighlight } from "react-native";
 import NoteListItem from "./components/NoteListItem";
+import GlobalContextProvider from "../../contexts/GlobalContext";
+import { getNotes } from "../../services";
+import { useFocusEffect } from "@react-navigation/native";
+import { ScrollView } from "react-native-web";
 
-
-const notes = [
-  { id: "1", header: "header1", date: new Date(), comment: "comment1" },
-  { id: "2", header: "header2", date: new Date(), comment: "comment2" }
-]
-export default function NoteListScreen({navigation}) {
+export default function NoteListScreen({ navigation }) {
+  const { state, setState } = useContext(GlobalContextProvider);
+  const [data, setData] = useState([])
   const addNote = () => {
     navigation.navigate('add-note')
   }
-  
-  return (
-    <View>
-      <FlatList
-        data={notes}
-        renderItem={({ item }) => <NoteListItem item={item} />}
-        keyExtractor={item => item.id} />
 
+  const cachedGetData = useCallback(() => {
+    async function getData() {
+      try {
+
+        const data = await getNotes(state.token);
+        console.log(data);
+        if (data && data.success) {
+          setData(data.data);
+        }
+      } catch (error) {
+        alert('error getting the data')
+      }
+    }
+    getData();
+  }, [])
+
+  useFocusEffect(cachedGetData);
+
+  return (
+    <ScrollView>
+     <FlatList
+        data={data}
+        renderItem={({ item }) => <NoteListItem item={item} />}
+        keyExtractor={item => item._id} />
       <TouchableHighlight onPress={addNote} style={styles.addButton}>
         <Text style={styles.buttonText}>Add Note</Text>
       </TouchableHighlight>
-    </View>
+      </ScrollView>
 
   )
 }
