@@ -3,12 +3,15 @@ import { View, Text,StyleSheet } from "react-native"
 
 export default function NoteDetails({ route }) {
     const { item } = route.params;
+    const dateObject = new Date(item.date);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObject);
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Note Details</Text>
             <Text style={styles.header}>{item.header}</Text>
             <Text style={styles.comment}>{item.comment}</Text>
-            <Text style={styles.date}>Date: {item.date}</Text>
+            <Text style={styles.date}>Date: {formattedDate}</Text>
         </View>
     )
 }

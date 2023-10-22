@@ -9,12 +9,14 @@ function NoteListItem({ item }) {
   const Details = () => {
     navigation.navigate('Details', { item });
   }
-
+  const dateObject = new Date(item.date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObject);
   return (
     <View style={styles.container}>
      
       <Text style={styles.header}>Header: {item.header}</Text>
-      <Text style={styles.date}>Date: {item.date}</Text>
+      <Text style={styles.date}>Date: {formattedDate}</Text>
       <TouchableHighlight style={styles.detailsButton} onPress={Details}>
         <Text style={styles.buttonText}>Details</Text>
       </TouchableHighlight>
