@@ -40,7 +40,7 @@ export default function FoodListScreen() {
     navigation.navigate("AddFood", fetchData);
   };
 
-  const filteredData = data.filter((item) =>
+  const filteredData = data?.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -60,7 +60,7 @@ export default function FoodListScreen() {
         renderItem={({ item }) => (
           <FoodListItem data={item} reload={fetchData} />
         )}
-        keyExtractor={(item) => item._id.toString()}
+        keyExtractor={(item) => item._id}
       />
     </View>
   );
