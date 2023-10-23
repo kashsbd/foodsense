@@ -6,9 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { deleteFood } from "../network";
 
 const FoodListItem = ({ data }) => {
-  // get userId from Global context
-
-  // need some unique value to delete food
+  // need some id for delete on database
   const { name, origin, price } = data;
 
   const navigation = useNavigation();
@@ -27,9 +25,7 @@ const FoodListItem = ({ data }) => {
           text: "Delete",
           onPress: async () => {
             try {
-              const res = await deleteFood(
-                "GlobalContext.userId , foodId, token"
-              );
+              const res = await deleteFood("need id here", token);
               if (res) {
                 Alert.alert("Food Successfully Deleted");
                 console.log("Item deleted");

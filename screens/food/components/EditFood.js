@@ -2,9 +2,11 @@ import { useState } from "react";
 import { View, Button, Text, TextInput } from "react-native";
 import { editFood } from "../network";
 import { Alert } from "bootstrap";
+import useToken from "../../../hooks/useToken";
 
 export default function EditFood({ params }) {
   const [editedFood, setEditedFood] = useState;
+  const { token } = useToken();
   // get unique id from food data to change
   const [name, origin, price] = params.data;
   const handleInput = (input, text) => {

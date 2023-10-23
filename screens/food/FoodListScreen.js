@@ -4,14 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 
 import FoodListItem from "./components/FoodListItem";
 import { getData } from "./network";
+import useToken from "../../hooks/useToken";
 
 export default function FoodListScreen() {
   const [data, setData] = useState();
   const navigation = useNavigation();
+  const { token } = useToken();
   async function fetchData() {
-    // pass userId, token inside getData
     try {
-      const res = await getData("pass userId and token here ");
+      const res = await getData(token);
       if (res) {
         setData(res);
       } else {
