@@ -1,3 +1,6 @@
+
+
+
 const API_URL = "http://localhost:5001";
 
 export const login = async (payload) => {
@@ -39,3 +42,39 @@ export const profile = async (token) => {
     throw error;
   }
 };
+
+
+export async function getNotes(token){
+  try {
+    const response=await fetch(`${API_URL}/users/notes`,{
+      headers:{Authentication: `Bearer ${token}`}
+    });
+    console.log(response);
+    const result=await response.json();
+    
+    return result;
+  } catch (error) {
+    throw error;
+  }
+  
+
+}
+
+export async function addNotes(payload,token){
+  try {
+    const response=await fetch(`${API_URL}/users/notes`,{
+      method:'POST',
+      headers:{
+        "Content-Type": "application/json",
+        Authentication: `Bearer ${token}`
+      },
+      body:JSON.stringify(payload)
+    });
+  
+    const result=await response.json();
+    return result;
+  } catch (error) {
+    throw error
+  }
+  
+}
