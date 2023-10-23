@@ -12,19 +12,54 @@ const FoodListItem = ({ data, reload }) => {
 
   const navigation = useNavigation();
 
+  //use this to check on computer browser otherwise comment this below code if you
+  // are using on mobile device
+  // const handleDeleteItem = async () => {
+  //   try {
+  //     const res = await deleteFood(_id, token);
+  //     if (res) {
+  //       Alert.alert("Food Successfully Deleted");
+  //       console.log("Item deleted");
+  //       reload();
+  //     } else {
+  //       console.log("Error deleting food");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // mobile version 
   const handleDeleteItem = async () => {
-    try {
-      const res = await deleteFood(_id, token);
-      if (res) {
-        Alert.alert("Food Successfully Deleted");
-        console.log("Item deleted");
-        reload();
-      } else {
-        console.log("Error deleting food");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    Alert.alert(
+      "Delete Food",
+      "Are you sure you want to delete this food?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: async () => {
+            try {
+              const res = await deleteFood(_id, token);
+              if (res) {
+                Alert.alert("Food Successfully Deleted");
+                console.log("Item deleted");
+                reload();
+              } else {
+                console.log("error deleting food");
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -90,7 +125,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   deleteButton: {
-    backgroundColor: "#e73040", 
+    backgroundColor: "#e73040",
     padding: 10,
     borderRadius: 5,
     flex: 1,
