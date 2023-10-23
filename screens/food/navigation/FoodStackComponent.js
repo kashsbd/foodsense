@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import FoodListScreen from "../FoodListScreen";
+import AddFood from "../components/AddFood";
+import EditFood from "../components/EditFood";
 
 const FoodStack = createNativeStackNavigator();
 function FoodStackComponent() {
@@ -9,6 +11,16 @@ function FoodStackComponent() {
       <FoodStack.Screen
         name="FoodList"
         component={FoodListScreen}
+        options={{ headerShown: false }}
+      />
+      <FoodStack.Screen
+        name="AddFood"
+        component={AddFood}
+        options={{ headerShown: false }}
+      />
+      <FoodStack.Screen
+        name="EditFood"
+        component={EditFood}
         options={{ headerShown: false }}
       />
     </FoodStack.Navigator>
