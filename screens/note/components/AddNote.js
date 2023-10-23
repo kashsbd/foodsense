@@ -14,6 +14,7 @@ export default function AddNote({ navigation }) {
                 const result = await addNotes(note, state.token);
                 Alert.alert('Notes Successfully Added')
                 navigation.navigate('NoteList');
+               
             } catch (error) {
                 alert('error adding notes');
             }
