@@ -21,7 +21,7 @@ function FoodStackComponent() {
       <FoodStack.Screen
         name="EditFood"
         component={EditFood}
-        options={{ headerShown: false }}
+        options={{  headerShown: true , headerTitle:"Go Back" }}
       />
     </FoodStack.Navigator>
   );
