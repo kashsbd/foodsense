@@ -4,10 +4,11 @@ import { Text, StyleSheet, View, TouchableHighlight } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 
-function NoteListItem({ item }) {
+function NoteListItem({ item,navigation }) {
   const navigation = useNavigation();
   const Details = () => {
     navigation.navigate('Details', { item });
+    navigation.goBack();
   }
   const dateObject = new Date(item.date);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
