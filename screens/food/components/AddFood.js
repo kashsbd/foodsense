@@ -19,7 +19,7 @@ export default function AddFood() {
     });
   };
   const handleSubmit = async () => {
-    const res = await addFood("globalContext.userId", food, token);
+    const res = await addFood(food, token);
     if (res) {
       Alert.alert("Food Added Successfully");
     } else {

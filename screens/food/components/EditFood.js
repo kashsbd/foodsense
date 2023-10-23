@@ -12,7 +12,7 @@ export default function EditFood({ params }) {
   };
   const handleSubmit = async () => {
     try {
-      const res = await editFood("userId", editedFood, token);
+      const res = await editFood(editedFood, token);
       if (res) {
         Alert.Alert("food successfully edited");
       } else {

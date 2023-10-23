@@ -1,46 +1,82 @@
-import axios from "axios";
+const baseUrl = "http://localhost:5001";
 
-axios.defaults.baseURL = "http://localhost:5001";
-
-export async function getData(userId, token) {
-  const url = `/users/${userId}/foodsts`;
+export async function getData(token) {
+  const url = `${baseUrl}/users/foods`;
   try {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    return null;
-  }
-}
-export async function addFood(userId, newProd, token) {
-  const url = `/users/${userId}/foods`;
-  try {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios.post(url, newProd);
-    return response.data;
-  } catch (error) {
-    return null;
-  }
-}
-
-export async function editFood(userId, editedProd, token) {
-  const url = `/users/${userId}/foods/${editProd.id}`;
-  console.log(url);
-  try {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios.put(url, editedProd);
-    return response.data;
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      return null;
+    }
   } catch (error) {
     return null;
   }
 }
 
-export async function deleteFood(userId, id, token) {
-  const url = `/users/${userId}/foods/${id}`;
+export async function addFood(newProd, token) {
+  const url = `${baseUrl}/users/foods`;
   try {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios.delete(url);
-    return response.data;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProd),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function editFood(editedProd, token) {
+  const url = `${baseUrl}/users/foods/${editedProd.id}`;
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedProd),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function deleteFood(id, token) {
+  const url = `${baseUrl}/users/foods/${id}`;
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return null;
+    }
   } catch (error) {
     return null;
   }

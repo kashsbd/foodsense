@@ -6,7 +6,6 @@ import FoodListItem from "./components/FoodListItem";
 import { getData } from "./network";
 
 export default function FoodListScreen() {
-  // assume i got user data from global context here
   const [data, setData] = useState();
   const navigation = useNavigation();
   async function fetchData() {
