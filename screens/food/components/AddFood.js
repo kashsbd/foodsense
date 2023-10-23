@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text } from "react-native";
+import { View, TextInput, Button, Text, Alert } from "react-native";
 import { addFood } from "../network";
-import { Alert } from "bootstrap";
 import useToken from "../../../hooks/useToken";
 
 export default function AddFood() {

@@ -36,7 +36,7 @@ export default function FoodListScreen() {
       <FlatList
         data={data}
         renderItem={({ item }) => <FoodListItem data={item} />}
-        keyExtractor={(item) => item.something.toString()} //have to store some unique value
+        keyExtractor={(item) => item._id.toString()}
       />
     </View>
   );
