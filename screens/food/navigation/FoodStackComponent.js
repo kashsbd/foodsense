@@ -16,7 +16,7 @@ function FoodStackComponent() {
       <FoodStack.Screen
         name="AddFood"
         component={AddFood}
-        options={{ headerShown: false }}
+        options={{ headerShown: true , headerTitle:"Go Back" }}
       />
       <FoodStack.Screen
         name="EditFood"

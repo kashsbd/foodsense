@@ -72,7 +72,7 @@ const FoodListItem = ({ data, reload }) => {
       <View style={styles.imageContainer}>
         {image === null ? (
           <Image
-            source={require("../../../../resources/noImage.jpg")}
+            source={require("../../../resources/noImage.jpg")}
             style={styles.image}
           />
         ) : (
