@@ -5,7 +5,6 @@ import GlobalContext from "../contexts/GlobalContext";
 
 function useToken() {
   const { state, setState } = useContext(GlobalContext);
-
   const setTokenAsync = async (token) => {
     try {
       await AsyncStorage.setItem("token", token);
@@ -14,7 +13,6 @@ function useToken() {
       console.log("Error saving token");
     }
   };
-
   const clearTokenAsync = async () => {
     try {
       await AsyncStorage.removeItem("token");
