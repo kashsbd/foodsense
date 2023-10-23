@@ -1,14 +1,12 @@
-import React, { useState } from "react";
 import { Alert } from "react-native";
-
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { deleteFood } from "../network";
 import useToken from "../../../hooks/useToken";
 
 const FoodListItem = ({ data, reload }) => {
   const { token } = useToken();
-  const { _id, name, origin, price } = data;
+  const { _id, name, origin, price, date, image } = data;
 
   const navigation = useNavigation();
 
@@ -34,8 +32,11 @@ const FoodListItem = ({ data, reload }) => {
         <Text style={styles.foodDescription}>
           {origin} - ${price}
         </Text>
+        <Text style={styles.dateText}>Date Posted: {date}</Text>
       </View>
-
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image }} style={styles.image} />
+      </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           onPress={() => {
@@ -47,7 +48,7 @@ const FoodListItem = ({ data, reload }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleDeleteItem}
-          style={styles.deleteButton} // Apply the deleteButton style here
+          style={styles.deleteButton}
         >
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   titleContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -77,6 +78,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "gray",
   },
+  dateText: {
+    fontSize: 16,
+    color: "green",
+  },
+  imageContainer: {
+    alignItems: "center",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
   buttonsContainer: {
     marginTop: 10,
     flexDirection: "row",
@@ -84,13 +97,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#5398DC",
-    padding: 10,
+    padding: 5,
     borderRadius: 5,
     flex: 1,
     margin: 5,
   },
   deleteButton: {
-    backgroundColor: "#e73040", 
+    backgroundColor: "#e73040",
     padding: 10,
     borderRadius: 5,
     flex: 1,
