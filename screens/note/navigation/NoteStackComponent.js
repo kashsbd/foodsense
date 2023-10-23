@@ -16,12 +16,12 @@ function NoteStackComponent() {
       <NoteStack.Screen
         name="Details"
         component={NoteDetails}
-        options={{ headerShown: true }}
+        options={{ title:"Note Details",headerShown: true }}
       />
       <NoteStack.Screen
         name="add-note"
         component={AddNote}
-        options={{ headerShown: true }}
+        options={{ title:"Add Note", headerShown: true }}
       />
     </NoteStack.Navigator>
   );
