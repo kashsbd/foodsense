@@ -56,7 +56,7 @@ export default function EditFood({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text>Edit Food</Text>
+      <Text style={styles.title}>Edit Food</Text>
       {editedFood.image && (
         <Image source={{ uri: editedFood.image }} style={styles.image} />
       )}
@@ -101,5 +101,11 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     margin: 10,
+  },
+  title: {
+    fontSize: 25,
+    color: "black",
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });

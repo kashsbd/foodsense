@@ -77,6 +77,7 @@ export default function AddFood({ route }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Add Food</Text>
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -146,6 +147,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  title: {
+    fontSize: 25,
+    color: "#black",
     textAlign: "center",
     fontWeight: "bold",
   },
