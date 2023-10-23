@@ -1,120 +1,105 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { deleteFood } from "../network";
+import useToken from "../../../hooks/useToken";
 
-const FoodListItem = ({ data }) => {
-  // need some id for delete on database
-  const { name, origin, price } = data;
+const FoodListItem = ({ data, reload }) => {
+  const { token } = useToken();
+  const { _id, name, origin, price } = data;
 
   const navigation = useNavigation();
 
   const handleDeleteItem = async () => {
-    Alert.alert(
-      "Delete Food",
-      "Are you sure you want to delete this food?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          onPress: async () => {
-            try {
-              const res = await deleteFood("need id here", token);
-              if (res) {
-                Alert.alert("Food Successfully Deleted");
-                console.log("Item deleted");
-              } else {
-                console.log("error deleting food");
-              }
-            } catch (error) {
-              console.log(error);
-            }
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+    try {
+      const res = await deleteFood(_id, token);
+      if (res) {
+        Alert.alert("Food Successfully Deleted");
+        console.log("Item deleted");
+        reload();
+      } else {
+        console.log("Error deleting food");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <View style={{ backgroundColor: "white" }}>
-      <View style={styles.food}>
-        <Text>{name}</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.foodName}>{name}</Text>
         <Text style={styles.foodDescription}>
           {origin} - ${price}
         </Text>
       </View>
 
-      <View style={styles.edges}>
-        <TouchableHighlight
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
           onPress={() => {
-            navigation.navigate("/editFood", data);
+            navigation.navigate("EditFood", { data });
           }}
           style={styles.button}
-          underlayColor="#5398DC"
         >
           <Text style={styles.buttonText}>Edit</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={handleDeleteItem}
-          style={styles.button}
-          underlayColor="#5398DC"
+          style={styles.deleteButton} // Apply the deleteButton style here
         >
           <Text style={styles.buttonText}>Delete</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
+  container: {
+    backgroundColor: "#fff",
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    elevation: 4,
+  },
+  titleContainer: {
     flexDirection: "row",
-    padding: 20,
-    borderBottomWidth: 1,
-    borderColor: "#ddd",
-  },
-  edges: {
-    flex: 1,
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
-    padding: 5,
-    minWidth: 50,
   },
-  food: {
-    flexDirection: "column",
-    flex: 8,
+  foodName: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
   foodDescription: {
-    color: "grey",
+    fontSize: 18,
+    color: "gray",
+  },
+  buttonsContainer: {
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   button: {
-    borderWidth: 1,
-    borderColor: "#0066CC",
-    borderRadius: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "#5398DC",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    margin: 5,
+  },
+  deleteButton: {
+    backgroundColor: "#e73040", 
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    margin: 5,
   },
   buttonText: {
-    color: "#0066CC",
-    fontSize: 12,
+    color: "#fff",
     textAlign: "center",
-  },
-  info: {
-    marginHorizontal: 40,
-    marginVertical: 10,
-    padding: 10,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 4,
+    fontWeight: "bold",
   },
 });
 

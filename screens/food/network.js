@@ -2,18 +2,22 @@ const baseUrl = "http://localhost:5001";
 
 export async function getData(token) {
   const url = `${baseUrl}/users/foods`;
+  const header = {
+    Authentication: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+  console.log("Header", header);
+
   try {
     const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      method: "GET",
+      headers: header,
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      return null;
-    }
+    console.log("token", token);
+    console.log(response);
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     return null;
   }
@@ -25,7 +29,7 @@ export async function addFood(newProd, token) {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authentication: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newProd),
@@ -47,19 +51,15 @@ export async function editFood(editedProd, token) {
     const response = await fetch(url, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authentication: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(editedProd),
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      return null;
-    }
+    const data = await response.json();
+    return data;
   } catch (error) {
-    return null;
+    throw error;
   }
 }
 
@@ -69,7 +69,7 @@ export async function deleteFood(id, token) {
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authentication: `Bearer ${token}`,
       },
     });
     if (response.ok) {
