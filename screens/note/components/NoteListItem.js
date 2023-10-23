@@ -14,7 +14,7 @@ function NoteListItem({ item }) {
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(dateObject);
   return (
     <View style={styles.container}>
-     
+
       <Text style={styles.header}>Header: {item.header}</Text>
       <Text style={styles.date}>Date: {formattedDate}</Text>
       <TouchableHighlight style={styles.detailsButton} onPress={Details}>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
   },
- 
+
   header: {
     fontSize: 16,
     marginBottom: 5,
