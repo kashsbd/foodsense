@@ -24,6 +24,7 @@ const FoodListItem = ({ data, reload }) => {
       console.log(error);
     }
   };
+  console.log("Image ", image);
 
   return (
     <View style={styles.container}>
@@ -35,7 +36,14 @@ const FoodListItem = ({ data, reload }) => {
         <Text style={styles.dateText}>Date Posted: {date}</Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={styles.image} />
+        {image === null ? (
+          <Image
+            source={require("../../../../resources/noImage.jpg")}
+            style={styles.image}
+          />
+        ) : (
+          <Image source={{ uri: image }} style={styles.image} />
+        )}
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
