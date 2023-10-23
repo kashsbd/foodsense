@@ -10,6 +10,8 @@ const FoodListItem = ({ data, reload }) => {
 
   const navigation = useNavigation();
 
+  //use this to check on computer browser otherwise comment this below code if you
+  // are using on mobile device
   const handleDeleteItem = async () => {
     try {
       const res = await deleteFood(_id, token);
@@ -24,7 +26,39 @@ const FoodListItem = ({ data, reload }) => {
       console.log(error);
     }
   };
-  console.log("Image ", image);
+
+  // mobile version
+  // const handleDeleteItem = async () => {
+  //   Alert.alert(
+  //     "Delete Food",
+  //     "Are you sure you want to delete this food?",
+  //     [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel Pressed"),
+  //         style: "cancel",
+  //       },
+  //       {
+  //         text: "Delete",
+  //         onPress: async () => {
+  //           try {
+  //             const res = await deleteFood(_id, token);
+  //             if (res) {
+  //               Alert.alert("Food Successfully Deleted");
+  //               console.log("Item deleted");
+  //               reload();
+  //             } else {
+  //               console.log("error deleting food");
+  //             }
+  //           } catch (error) {
+  //             console.log(error);
+  //           }
+  //         },
+  //       },
+  //     ],
+  //     { cancelable: false }
+  //   );
+  // };
 
   return (
     <View style={styles.container}>
@@ -105,7 +139,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#5398DC",
-    padding: 5,
+    padding: 10,
     borderRadius: 5,
     flex: 1,
     margin: 5,
@@ -120,6 +154,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     textAlign: "center",
+    alignContent: "center",
+    alignItems: "center",
     fontWeight: "bold",
   },
 });
