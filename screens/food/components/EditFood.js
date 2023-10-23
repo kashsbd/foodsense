@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Image,
+} from "react-native";
 import useToken from "../../../hooks/useToken";
 import { editFood } from "../network";
 import * as ImagePicker from "expo-image-picker";
@@ -12,6 +20,7 @@ export default function EditFood({ route }) {
     name: data.name,
     origin: data.origin,
     price: data.price,
+    date: data.date,
     id: data._id,
     image: data.image,
   });
