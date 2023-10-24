@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import CenterLoading from "../../components/CenterLoading";
 import { profile } from "../../services";
 import useToken from "../../hooks/useToken";
 
-function ProfileScreen() {
+function ProfileDetailScreen() {
+  const navigation = useNavigation();
   const [state, setState] = useState({
     data: null,
     isLoading: false,
@@ -38,6 +39,10 @@ function ProfileScreen() {
     await clearTokenAsync();
   };
 
+  const onEditBtnPressed = () => {
+    navigation.navigate("EditProfile", state.data);
+  };
+
   if (state.isLoading) {
     return <CenterLoading />;
   }
@@ -49,7 +54,13 @@ function ProfileScreen() {
       <Text style={styles.input}>{state.data?.fullname}</Text>
       <Text style={styles.input}>{state.data?.phno}</Text>
       <Text style={styles.input}>{state.data?.address}</Text>
-      <Pressable style={styles.submitButton} onPress={onLogoutBtnPressed}>
+      <Pressable style={styles.submitButton} onPress={onEditBtnPressed}>
+        <Text style={styles.submitButtonText}>Edit</Text>
+      </Pressable>
+      <Pressable
+        style={[styles.submitButton, styles.mt_10]}
+        onPress={onLogoutBtnPressed}
+      >
         <Text style={styles.submitButtonText}>Logout</Text>
       </Pressable>
     </View>
@@ -84,6 +95,9 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
   },
+  mt_10: {
+    marginTop: 10,
+  },
 });
 
-export default ProfileScreen;
+export default ProfileDetailScreen;
