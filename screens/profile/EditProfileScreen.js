@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import CenterLoading from "../../components/CenterLoading";
-import { signup } from "../../services";
+import { editProfile } from "../../services";
+import useToken from "../../hooks/useToken";
 
-function SignUpScreen() {
+function EditProfileScreen() {
   const navigation = useNavigation();
+  const { params } = useRoute();
+
+  const { token } = useToken();
+
   const [state, setState] = useState({
-    email: "",
-    password: "",
-    fullname: "",
-    phno: "",
-    address: "",
+    fullname: params?.fullname,
+    phno: params?.phno,
+    address: params?.address,
     isLoading: false,
   });
 
@@ -21,15 +24,7 @@ function SignUpScreen() {
   };
 
   const onSubmitBtnPressed = async () => {
-    if (state.email.trim().length === 0) {
-      alert("Please key in email.");
-    } else if (
-      !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/.test(state.email)
-    ) {
-      alert("Please key in valid email.");
-    } else if (state.password.trim().length === 0) {
-      alert("Please key in password.");
-    } else if (state.fullname.trim().length === 0) {
+    if (state.fullname.trim().length === 0) {
       alert("Please key in fullname.");
     } else if (state.phno.trim().length !== 10) {
       alert("Phone number length should be 10.");
@@ -38,9 +33,7 @@ function SignUpScreen() {
     } else {
       try {
         setState((pre) => ({ ...pre, isLoading: true }));
-        const json = await signup({
-          email: state.email,
-          password: state.password,
+        const json = await editProfile(token, {
           fullname: state.fullname,
           phno: state.phno,
           address: state.address,
@@ -68,20 +61,6 @@ function SignUpScreen() {
 
   return (
     <View>
-      <Text style={styles.title}>SignUp</Text>
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        value={state?.email}
-        onChangeText={(text) => handleChange("email", text)}
-      />
-      <TextInput
-        secureTextEntry
-        placeholder="Password"
-        style={styles.input}
-        value={state?.password}
-        onChangeText={(text) => handleChange("password", text)}
-      />
       <TextInput
         placeholder="Full Name"
         style={styles.input}
@@ -102,11 +81,6 @@ function SignUpScreen() {
       />
       <Pressable style={styles.submitButton} onPress={onSubmitBtnPressed}>
         <Text style={styles.submitButtonText}>Submit</Text>
-      </Pressable>
-      <Pressable style={styles.rowCenter} onPress={navigation.goBack}>
-        <Text>
-          Already have account? <Text style={styles.loginText}>Login</Text>
-        </Text>
       </Pressable>
     </View>
   );
@@ -140,13 +114,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
   },
-  rowCenter: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  loginText: {
-    color: "#0066cc",
-  },
 });
 
-export default SignUpScreen;
+export default EditProfileScreen;

@@ -3,7 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import FoodStackComponent from "./food/navigation/FoodStackComponent";
 import NoteStackComponent from "./note/navigation/NoteStackComponent";
-import ProfileScreen from "./profile/ProfileScreen";
+import ProfileStackComponent from "./profile/navigation/ProfileStackNavigation";
 
 const BottomTabs = createBottomTabNavigator();
 export default function MainStackComponent() {
@@ -34,8 +34,8 @@ export default function MainStackComponent() {
         }}
       />
       <BottomTabs.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}
+        name="ProfileStack"
+        component={ProfileStackComponent}
         options={{
           title: "Profile",
           tabBarIcon: ({ color }) => (
